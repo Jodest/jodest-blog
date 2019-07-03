@@ -1,8 +1,10 @@
 import React from 'react';
 
+import HeaderNavigation from './HeaderNavigation';
+
 const BlogHeader = () => {
   return (
-      <div>Header</div>
+      <HeaderNavigation />
   );
 };
 

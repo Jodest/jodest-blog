@@ -1,4 +1,11 @@
-
+export interface IArticle {
+  id: number;
+  title: string;
+  author: string;
+  image: string;
+  date: Date;
+  text: string;
+}
 export default class ArticlesService {
 
   data = [

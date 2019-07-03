@@ -1,6 +1,6 @@
-import HomePage from './Home/HomePage';
-import ArticlesPage from './Articles/ArticlesPage';
-import AboutPage from './About/AboutPage';
+import HomePage from './Home';
+import ArticlesPage from './Articles';
+import AboutPage from './About';
 
 export {
   HomePage,

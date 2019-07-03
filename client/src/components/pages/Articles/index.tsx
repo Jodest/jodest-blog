@@ -1,1 +1,2 @@
-export { default } from './ArticlesPage';
+import ArticlesPage from './ArticlesPage';
+export default ArticlesPage;

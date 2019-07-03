@@ -6,17 +6,16 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import store from './store/store';
 
 import App from './components/App';
-// import ErrorBoundry from './components/error-boundry';
+import ErrorBoundry from './components/ErrorBoundry';
+
 
 ReactDOM.render(
-  <React.Fragment>
-    <Provider store={store}>
-      {/* <ErrorBoundry> */}
-        <Router>
-          <App />
-        </Router>
-      {/* </ErrorBoundry> */}
-    </Provider>
-  </React.Fragment>,
+  <Provider store={store}>
+    <ErrorBoundry>
+      <Router>
+        <App />
+      </Router>
+    </ErrorBoundry>
+  </Provider>,
   document.getElementById('root')
 );
