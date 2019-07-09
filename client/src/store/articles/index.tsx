@@ -1,7 +1,9 @@
-// import { addTask, deleteTask, searchTask, toggleCheckAllTask, toggleCheckTask } from './actions';
-import articles from './reducer';
+import { fetchArticles, articlesAdd } from './actions';
+import updateArticles from './reducer';
 
 export {
-  articles
+  updateArticles,
+  fetchArticles,
+  articlesAdd,
 };
 

@@ -1,14 +1,52 @@
+import { Dispatch } from 'redux';
+
 import {
-  ARTICLES_LOADED,
+  FETCH_ARTICLES_REQUEST,
+  FETCH_ARTICLES_SUCCESS,
+  FETCH_ARTICLES_FAILURE,
+  ADD_ARTICLES,
 } from '../constants';
 
+import { IArticle } from '../../services/ArticlesService';
 
-export interface ArticlesLoadedAction {
-  type: ARTICLES_LOADED;
-  payload: object;
+
+export interface ArticlesAction {
+  type: string;
+  payload: any;
 }
 
-export const articlesLoaded = (data: object): ArticlesLoadedAction => ({
-  type: ARTICLES_LOADED,
+const articlesRequested = () => {
+  return {
+    type: FETCH_ARTICLES_REQUEST
+  };
+};
+
+const articlesLoaded = (newArticles: IArticle[]): ArticlesAction => {
+  return {
+    type: FETCH_ARTICLES_SUCCESS,
+    payload: newArticles
+  };
+};
+
+const articlesError = (error: any): ArticlesAction => {
+  return {
+    type: FETCH_ARTICLES_FAILURE,
+    payload: error
+  };
+};
+
+const fetchArticles = (articlesService: any) => () => (dispatch: Dispatch) => {
+  dispatch(articlesRequested());
+  articlesService.getArticles()
+    .then((data: IArticle[]) => dispatch(articlesLoaded(data)))
+    .catch((err: any) => dispatch(articlesError(err)));
+};
+
+export {
+  fetchArticles
+};
+
+export const articlesAdd = (data: IArticle[]): ArticlesAction => ({
+  type: ADD_ARTICLES,
   payload: data
 });

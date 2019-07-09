@@ -1,34 +1,40 @@
 import React from 'react';
-import { connect, DispatchProp } from 'react-redux';
-import { compose } from 'redux';
-import { IStore } from '../../../../store/store';
+import { connect } from 'react-redux';
+import { compose, bindActionCreators, Dispatch } from 'redux';
 
-// import { toggleAddTaskDialog } from '../../store/add-task-dialog';
-// import { addTask } from '../../store/tasks';
+import { fetchArticles } from '../../../../store/articles';
+import ArticlesService from '../../../../services/ArticlesService';
 
-interface ArticlesProps extends DispatchProp<IStore> {
+export interface Props {
+  articles: any;
+  fetchArticles: any;
+};
 
-}
+const WithArticlesState = (Wrapped: React.SFC<Props>) => (props: any): any => {
+  if (props.loading) {
+    return <p>Загрузка</p>;
+  }
 
-const WithArticlesState = <P extends object>(Wrapped: React.ComponentType<P>) => (props: P) => {
-  console.log(Wrapped, props);
+  if (props.error) {
+    return <p>Ошибка</p>;
+  }
+
   return (
     <Wrapped {...props} />
   );
 }
 
-const mapStateToProps = ({articles}: IStore) => ({
-  articles
+const mapStateToProps = ({ updateArticles }: any) => ({
+  updateArticles
 });
 
-const mapDispatchToProps = {
-  // toggleAddTaskDialog,
-  // addTask
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return bindActionCreators({
+    fetchArticles: fetchArticles(new ArticlesService()),
+  }, dispatch);
 };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(WithArticlesState);
-
 export default compose(
-  connect<{}, {}, ArticlesProps>(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   WithArticlesState
 );

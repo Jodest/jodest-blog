@@ -1,28 +1,51 @@
 import {
-  ARTICLES_LOADED
+  FETCH_ARTICLES_REQUEST,
+  FETCH_ARTICLES_SUCCESS,
+  FETCH_ARTICLES_FAILURE,
+  ADD_ARTICLES,
 } from '../constants';
 
-import { ArticlesLoadedAction } from './actions';
+import { ArticlesAction } from './actions';
+
+import { IArticle } from '../../services/ArticlesService';
 
 
 export interface ArticlesState {
-  data: object;
+  articles: IArticle[];
+  loading: boolean,
+  error: boolean | null;
 }
 
 const initState: ArticlesState = {
-  data: [],
+  articles: [],
+  loading: true,
+  error: null,
 };
 
-const articles = (state:ArticlesState = initState, {type, payload}: ArticlesLoadedAction) => {
+const updateArticles = (state: ArticlesState = initState, {type, payload}: ArticlesAction): ArticlesState => {
 
   switch (type) {
-    case ARTICLES_LOADED:
+    case FETCH_ARTICLES_REQUEST:
       return {
-        data: payload
+        articles: [],
+        loading: true,
+        error: null
+      }
+    case FETCH_ARTICLES_SUCCESS:
+      return {
+        articles: payload,
+        loading: false,
+        error: null
+      }
+    case FETCH_ARTICLES_FAILURE:
+      return {
+        articles: [],
+        loading: false,
+        error: payload
       }
     default:
       return state;
   }
 };
 
-export default articles;
+export default updateArticles;
