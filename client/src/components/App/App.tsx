@@ -5,7 +5,6 @@ import BlogHeader from '../BlogHeader';
 import { HomePage, ArticlesPage, AboutPage } from '../pages';
 
 const App = () => {
-  console.log(HomePage, ArticlesPage);
   return (
     <main role="main" className="container">
       <BlogHeader/>
