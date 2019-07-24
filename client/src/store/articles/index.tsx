@@ -1,9 +1,8 @@
-import { fetchArticles, articlesAdd } from './actions';
+import { fetchArticles } from './actions';
 import updateArticles from './reducer';
 
 export {
   updateArticles,
   fetchArticles,
-  articlesAdd,
 };
 

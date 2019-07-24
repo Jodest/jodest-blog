@@ -2,7 +2,6 @@ import {
   FETCH_ARTICLES_REQUEST,
   FETCH_ARTICLES_SUCCESS,
   FETCH_ARTICLES_FAILURE,
-  ADD_ARTICLES,
 } from '../constants';
 
 import { ArticlesAction } from './actions';

@@ -10,43 +10,55 @@ import WithArticlesState from './container';
 
 
 export interface Props {
-  articles: any;
   fetchArticles: any;
   updateArticles: any;
+  articles: any;
+  loading: any;
+  error: any;
 };
 
 class ArticlesPage extends React.Component<Props> {
 
   componentDidMount() {
+    console.log(this.props);
     this.props.fetchArticles();
   }
 
   render() {
+    const { articles, loading, error } = this.props;
     console.log(this.props);
-    if (this.props.updateArticles.loading) {
+    if (loading) {
       return <Spinner />
     }
 
-    if (this.props.updateArticles.error) {
+    if (error) {
       return <div>Error</div>;
     }
 
     return (
       <div>
-        <Article
-        title={this.props.updateArticles.articles[0].title}
-        author={this.props.updateArticles.articles[0].author}
-        image={this.props.updateArticles.articles[0].image}
-        date={this.props.updateArticles.articles[0].date}
-        text={this.props.updateArticles.articles[0].text}
-        />
+        <ul className="article-list">
+          {
+            articles.map(({title, author, image, date, text}: any, ind: number) => (
+              <li key={ind}>
+                <Article
+                  title={title}
+                  author={author}
+                  image={image}
+                  date={date}
+                  text={text}
+                />
+              </li>
+            ))
+          }
+        </ul>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ updateArticles }: any) => ({
-  updateArticles
+const mapStateToProps = ({ updateArticles: { articles, loading, error } }: any) => ({
+  articles, loading, error
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -56,6 +68,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 };
 
 export default compose(
+  //!
+  // WithArticlesState,
   connect(mapStateToProps, mapDispatchToProps),
   // WithArticlesState,
 )(ArticlesPage);
