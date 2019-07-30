@@ -14,14 +14,16 @@ const Article: React.SFC<Props> = ({
   image,
   date,
   text
-}) =>  (
+}) =>  {
+  const labelDate = new Date(date).toUTCString();
+  return (
     <div>
       <div>{title}</div>
       <img src={image} alt=""/>
       <p>{text}</p>
-      <p>{date}</p>
+      <p>{labelDate}</p>
       <p>{author}</p>
     </div>
-);
+)};
 
 export default Article;

@@ -12,7 +12,7 @@ import { IArticle } from '../../services/ArticlesService';
 export interface ArticlesState {
   articles: IArticle[];
   loading: boolean,
-  error: boolean | null;
+  error: any;
 }
 
 const initState: ArticlesState = {

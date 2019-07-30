@@ -1,37 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { compose, bindActionCreators, Dispatch } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 
 import { fetchArticles } from '../../../../store/articles';
 import ArticlesService from '../../../../services/ArticlesService';
 import Spinner from '../../../Spinner';
 
-export interface Props {
-  articles: any;
-  loading: any;
+import { IArticle } from '../../../../services/ArticlesService';
+// import { ArticlesState } from '../../../../store/articles/reducer';
+
+export interface InjectedProps {
+  articles: IArticle;
+};
+
+export interface ExternalProps extends InjectedProps {
+  loading: boolean;
   error: any;
   fetchArticles: any;
 };
 
-export interface Props2 {
-  articles: any;
-};
-
-const WithArticlesState = (Wrapped: React.ComponentType<Props2>) => {
-  return class extends Component<Props & Props2, {}> {
+const WithArticlesState = (Wrapped: React.ComponentType<InjectedProps>) => {
+  class HOC extends Component<ExternalProps> {
     componentDidMount() {
-      console.log(this.props);
       this.props.fetchArticles();
     }
 
     render() {
-      console.log(this.props);
       if (this.props.loading) {
         return <Spinner />;
       }
 
       if (this.props.error) {
-        return <p>Error</p>;
+        return <p>{this.props.error.message}</p>;
       }
 
       return (
@@ -39,37 +39,25 @@ const WithArticlesState = (Wrapped: React.ComponentType<Props2>) => {
       );
     }
   }
+
+  const mapStateToProps = ({ updateArticles: { articles, loading, error } }: any) => ({
+    articles,
+    loading,
+    error
+  });
+
+  const mapDispatchToProps = (dispatch: Dispatch) => {
+    return bindActionCreators(
+      {
+        fetchArticles: fetchArticles(new ArticlesService()),
+      },
+      dispatch);
+  };
+
+  return connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(HOC);
 }
 
-// const WithArticlesState = (Wrapped: React.SFC<Props>) => ({ articles, error, loading, ...props}: any): any => {
-//   console.log(props);
-
-
-
-//   if (loading) {
-//     return <Spinner />;
-//   }
-
-//   if (error) {
-//     return <p>Error</p>;
-//   }
-
-//   return (
-//     <Wrapped articles={articles} {...props} />
-//   );
-// }
-
-const mapStateToProps = ({ updateArticles: { articles, loading, error } }: any) => ({
-  articles, loading, error
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return bindActionCreators({
-    fetchArticles: fetchArticles(new ArticlesService()),
-  }, dispatch);
-};
-
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  WithArticlesState
-);
+export default WithArticlesState;
