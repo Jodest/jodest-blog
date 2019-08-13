@@ -1,3 +1,3 @@
 module.exports = {
-  url : 'mongodb://admin:password1@ds159024.mlab.com:59024/jodest-blog'
+  url : `mongodb+srv://dmitry:4pcQiXzEp8oxCllr@cluster0-fq59z.mongodb.net/test?retryWrites=true&w=majority`,
 };

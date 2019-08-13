@@ -1,32 +1,38 @@
-const express        = require('express');
-const MongoClient    = require('mongodb').MongoClient;
-const bodyParser     = require('body-parser');
-const db             = require('./config/db');
-const app            = express();
+const path = require('path');
+const express = require('express');
+const db = require('./config/db');
+const app = express();
+const articlesRoutes = require('./app/routes/articles_routes');
 
-const port = 3000;
+const mongoose = require('mongoose');
 
-app.use(bodyParser.urlencoded({ extended: true }));
+const PORT = process.env.PORT | 3000;
 
-// MongoClient.connect(db.url, { useNewUrlParser: true }, (err, database) => {
-//   if (err) {
-//     return console.log(err);
+console.log(path.join(__dirname, '../client/src'));
+
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+app.use('/api/articles', articlesRoutes);
+
+
+
+app.use((req, res, next) => {
+  res.sendFile('/index.html');
+});
+
+app.listen(PORT, () => {
+  console.log('We are live on ' + PORT);
+});
+
+// async function start() {
+//   try {
+//     await mongoose.connect(db.url, { useNewUrlParser: true })
+//     app.listen(PORT, () => {
+//       console.log('We are live on ' + PORT);
+//     });
+//   } catch(err) {
+//     console.log(err);
 //   }
+// };
 
-//   require('./app/routes')(app, database);
-//   app.listen(port, () => {
-//     console.log('We are live on ' + port);
-//   });
-// });
-
-MongoClient.connect(db.url, { useNewUrlParser: true })
-  .then((database) => {
-    require('./app/routes')(app, database);
-    app.listen(port, () => {
-      console.log('We are live on ' + port);
-    });
-  })
-
-  .catch((err) => {
-    console.log(err);
-  })
+// start();
