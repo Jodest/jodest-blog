@@ -42,5 +42,5 @@ const fetchArticles = (articlesService: any) => () => (dispatch: Dispatch) => {
 };
 
 export {
-  fetchArticles
+  fetchArticles,
 };

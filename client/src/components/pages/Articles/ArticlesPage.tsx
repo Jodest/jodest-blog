@@ -2,7 +2,7 @@ import React from 'react';
 import { compose } from 'redux';
 
 import Article from '../Article';
-import WithArticlesState from './container';
+import WithArticlesState from '../../../Providers/Articles';
 
 import { IArticle } from '../../../services/ArticlesService';
 
@@ -16,27 +16,57 @@ interface ArticleData {
 }
 interface Props {
   articles: IArticle;
+  fetchArticles: any;
 };
 
-const ArticlesPage: React.SFC<Props> = ({ articles }) => (
-  <div>
-    <ul className="article-list">
-      {
-        articles.map(({title, author, image, date, text}: IArticle, ind: number) => (
-          <li key={ind}>
-            <Article
-              title={title}
-              author={author}
-              image={image}
-              date={date}
-              text={text}
-            />
-          </li>
-        ))
-      }
-    </ul>
-  </div>
-);
+class ArticlesPage extends React.Component<Props> {
+  componentDidMount() {
+    // this.props.fetchArticles();
+  }
+
+  render() {
+    const { articles } = this.props;
+    return (
+      <div>
+        <ul className="article-list">
+          {
+            articles.map(({title, author, image, date, text}: IArticle, ind: number) => (
+              <li key={ind}>
+                <Article
+                  title={title}
+                  author={author}
+                  image={image}
+                  date={date}
+                  text={text}
+                />
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    )
+  }
+}
+
+// const ArticlesPage: React.SFC<Props> = ({ articles }) => (
+//   <div>
+//     <ul className="article-list">
+//       {
+//         articles.map(({title, author, image, date, text}: IArticle, ind: number) => (
+//           <li key={ind}>
+//             <Article
+//               title={title}
+//               author={author}
+//               image={image}
+//               date={date}
+//               text={text}
+//             />
+//           </li>
+//         ))
+//       }
+//     </ul>
+//   </div>
+// );
 
 export default compose(
   WithArticlesState,

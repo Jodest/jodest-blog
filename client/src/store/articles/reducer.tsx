@@ -4,7 +4,7 @@ import {
   FETCH_ARTICLES_FAILURE,
 } from '../constants';
 
-import { ArticlesAction } from './actions';
+// import { ArticlesAction } from './actions';
 
 import { IArticle } from '../../services/ArticlesService';
 
@@ -20,6 +20,11 @@ const initState: ArticlesState = {
   loading: true,
   error: null,
 };
+
+export interface ArticlesAction {
+  type: string;
+  payload: any;
+}
 
 const updateArticles = (state: ArticlesState = initState, {type, payload}: ArticlesAction): ArticlesState => {
 

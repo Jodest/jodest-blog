@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export interface IArticle {
   [x: string]: any;
   id: number;
@@ -7,6 +9,9 @@ export interface IArticle {
   date: Date;
   text: string;
 }
+
+const url = 'http://localhost:3000/articles/';
+
 export default class ArticlesService {
 
   data = [
@@ -29,14 +34,31 @@ export default class ArticlesService {
   ];
 
   getArticles() {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (Math.random() > 0.75) {
-          reject(new Error('Something bad happened'));
-        } else {
-          resolve(this.data);
-        }
-      }, 700);
-    });
+    // return new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     if (Math.random() > 0.75) {
+    //       reject(new Error('Something bad happened'));
+    //     } else {
+    //       resolve(this.data);
+    //     }
+    //   }, 700);
+    // });
+    return axios.get(url)
+      .then(res => res.data);
+  }
+
+  createArticles(article: any) {
+    // return new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     if (Math.random() > 0.75) {
+    //       reject(new Error('Something bad happened'));
+    //     } else {
+    //       resolve(this.data);
+    //     }
+    //   }, 700);
+    // });
+    return axios.post(`${url}add`, article)
+      .then(res => {console.log(res); return res.data})
+      .catch(res => console.log(res));
   }
 }

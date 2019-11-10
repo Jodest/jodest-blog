@@ -1,0 +1,78 @@
+
+.button {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 8px 24px;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  cursor: pointer;
+
+  &[type=reset],
+  &[type=button] {
+    background-color: inherit;
+  }
+
+  &[type=submit],
+  &-submit[type=button],
+  &-submit {
+    // border: 1px solid $color-active;
+    // background-color: $color-active;
+    // color: $ashly-white;
+
+    &:hover {
+      // background-color: lighten($color-active, 5%);
+    }
+
+    &[disabled] {
+      // background-color: $color-active;
+    }
+  }
+
+  &[disabled] {
+    // opacity: $disabled-opacity;
+
+    svg {
+      // opacity: $disabled-opacity;
+    }
+  }
+
+  &-cancel {
+    // border: 1px solid $ashly-black;
+    // color: $ashly-black;
+    outline: 0;
+
+    &:hover {
+      // border-color: $ashly-dark-text;
+      // color: $ashly-dark-text;
+    }
+  }
+
+  &-info {
+    // border: 1px solid $color-active;
+    // color: $color-active;
+
+    &:hover {
+      // border-color: lighten($color-active, 10%);
+      // color: lighten($color-active, 10%);
+    }
+  }
+
+  &-cancel,
+  &-info {
+    background-color: inherit;
+  }
+
+  &-delete {
+    border: none;
+    // color: $color-active;
+    padding: 0;
+    background: none;
+  }
+}

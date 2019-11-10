@@ -9,12 +9,12 @@ const article = new Schema({
     type: String,
     required: true
   },
-  image: {
-    type: String,
-    required: true
-  },
+  // image: {
+  //   type: String,
+  //   required: true
+  // },
   date: {
-    type: Date,
+    type: String,
     required: true
   },
   text: {

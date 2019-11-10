@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-const Form = ({children}: any) => (
-  <form action="">
-    { children }
+interface Props extends React.FormHTMLAttributes<HTMLFormElement> {
+  // type?: string;
+  children: ReactNode;
+}
+
+
+const Form: React.SFC<Props> = ({
+  children,
+  className,
+  ...props
+}) => (
+  <form
+    className={className}
+    {...props}
+  >
+    {children}
   </form>
 );
 
